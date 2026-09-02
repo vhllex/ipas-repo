@@ -47,9 +47,26 @@ jobs:
           echo "URL=$URL" >> $GITHUB_OUTPUT
           echo "SIZE=$SIZE" >> $GITHUB_OUTPUT
 
+      - name: Fetch Stremio
+        id: stremio
+        run: |
+          JSON=$(curl -s https://dl.strem.io/apple/altstore/source.json)
+          VER=$(echo "$JSON" | jq -r '.apps[0].version')
+          BUILD=$(echo "$JSON" | jq -r '.apps[0].buildVersion')
+          DATE=$(echo "$JSON" | jq -r '.apps[0].versionDate' | cut -d'T' -f1)
+          SIZE=$(echo "$JSON" | jq -r '.apps[0].size // 45000000')
+          
+          # Construct download URL: https://dl.strem.io/apple/{version}b{buildVersion}/ios/stremio_iOS.ipa
+          URL="https://dl.strem.io/apple/${VER}b${BUILD}/ios/stremio_iOS.ipa"
+
+          echo "VER=$VER" >> $GITHUB_OUTPUT
+          echo "DATE=$DATE" >> $GITHUB_OUTPUT
+          echo "URL=$URL" >> $GITHUB_OUTPUT
+          echo "SIZE=$SIZE" >> $GITHUB_OUTPUT
+
       - name: Update apps.json
         run: |
-          # Update YTKACE (Index 0)
+          # Index 0: YTKACE
           jq --arg y_ver "${{ steps.ytkace.outputs.TAG }}" \
              --arg y_date "${{ steps.ytkace.outputs.DATE }}" \
              --arg y_url "${{ steps.ytkace.outputs.URL }}" \
@@ -57,16 +74,24 @@ jobs:
              '.apps[0].version = $y_ver | .apps[0].versionDate = $y_date | .apps[0].downloadURL = $y_url | .apps[0].size = ($y_size | tonumber)' \
              apps.json > apps.tmp.json && mv apps.tmp.json apps.json
 
-          # Update SpotC++ (Index 1)
+          # Index 1: SpotC++
           jq --slurpfile spotc spotc_app.json '.apps[1] = $spotc[0]' apps.json > apps.tmp.json && mv apps.tmp.json apps.json
           rm spotc_app.json
 
-          # Update NuvioMobile (Index 2)
+          # Index 2: Nuvio
           jq --arg n_ver "${{ steps.nuvio.outputs.TAG }}" \
              --arg n_date "${{ steps.nuvio.outputs.DATE }}" \
              --arg n_url "${{ steps.nuvio.outputs.URL }}" \
              --arg n_size "${{ steps.nuvio.outputs.SIZE }}" \
              '.apps[2].version = $n_ver | .apps[2].versionDate = $n_date | .apps[2].downloadURL = $n_url | .apps[2].size = ($n_size | tonumber)' \
+             apps.json > apps.tmp.json && mv apps.tmp.json apps.json
+
+          # Index 3: Stremio
+          jq --arg s_ver "${{ steps.stremio.outputs.VER }}" \
+             --arg s_date "${{ steps.stremio.outputs.DATE }}" \
+             --arg s_url "${{ steps.stremio.outputs.URL }}" \
+             --arg s_size "${{ steps.stremio.outputs.SIZE }}" \
+             '.apps[3].version = $s_ver | .apps[3].versionDate = $s_date | .apps[3].downloadURL = $s_url | .apps[3].size = ($s_size | tonumber)' \
              apps.json > apps.tmp.json && mv apps.tmp.json apps.json
 
       - name: Commit and Push Changes
