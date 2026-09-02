@@ -27,14 +27,12 @@ jobs:
           echo "SIZE=$SIZE" >> $GITHUB_OUTPUT
 
       - name: Fetch Official SpotC++ App Object
-        id: spotc
         run: |
-          # Pulls the official SpotC++ JSON block from their raw GitHub source
-          curl -s https://raw.githubusercontent.com/SpotCompiled/SpotC-Repo/main/apps.json | jq '.apps[0]' > spotc_app.json
+          curl -s "https://spotc-repo.yodaluca.dev/AltStore%20Repo.json" | jq '.apps[0]' > spotc_app.json
 
       - name: Update apps.json
         run: |
-          # Updates YTKACE in index 0
+          # Update YTKACE at index 0
           jq --arg y_ver "${{ steps.ytkace.outputs.TAG }}" \
              --arg y_date "${{ steps.ytkace.outputs.DATE }}" \
              --arg y_url "${{ steps.ytkace.outputs.URL }}" \
@@ -42,7 +40,7 @@ jobs:
              '.apps[0].version = $y_ver | .apps[0].versionDate = $y_date | .apps[0].downloadURL = $y_url | .apps[0].size = ($y_size | tonumber)' \
              apps.json > apps.tmp.json && mv apps.tmp.json apps.json
 
-          # Replaces SpotC++ in index 1 with SpotCompiled's official complete object
+          # Replace SpotC++ at index 1 with yodaluca's official app object (includes correct Catbox URL)
           jq --slurpfile spotc spotc_app.json '.apps[1] = $spotc[0]' apps.json > apps.tmp.json && mv apps.tmp.json apps.json
           
           rm spotc_app.json
