@@ -33,8 +33,23 @@ jobs:
         run: |
           curl -s "https://spotc-repo.yodaluca.dev/AltStore%20Repo.json" | jq '.apps[0]' > spotc_app.json
 
+      - name: Fetch NuvioMobile Release
+        id: nuvio
+        run: |
+          JSON=$(curl -s https://api.github.com/repos/NuvioMedia/NuvioMobile/releases/latest)
+          TAG=$(echo "$JSON" | jq -r '.tag_name' | sed 's/^v//')
+          DATE=$(echo "$JSON" | jq -r '.published_at' | cut -d'T' -f1)
+          URL=$(echo "$JSON" | jq -r '.assets[] | select(.name | endswith(".ipa")) | .browser_download_url')
+          SIZE=$(echo "$JSON" | jq -r '.assets[] | select(.name | endswith(".ipa")) | .size')
+
+          echo "TAG=$TAG" >> $GITHUB_OUTPUT
+          echo "DATE=$DATE" >> $GITHUB_OUTPUT
+          echo "URL=$URL" >> $GITHUB_OUTPUT
+          echo "SIZE=$SIZE" >> $GITHUB_OUTPUT
+
       - name: Update apps.json
         run: |
+          # Update YTKACE (Index 0)
           jq --arg y_ver "${{ steps.ytkace.outputs.TAG }}" \
              --arg y_date "${{ steps.ytkace.outputs.DATE }}" \
              --arg y_url "${{ steps.ytkace.outputs.URL }}" \
@@ -42,9 +57,17 @@ jobs:
              '.apps[0].version = $y_ver | .apps[0].versionDate = $y_date | .apps[0].downloadURL = $y_url | .apps[0].size = ($y_size | tonumber)' \
              apps.json > apps.tmp.json && mv apps.tmp.json apps.json
 
+          # Update SpotC++ (Index 1)
           jq --slurpfile spotc spotc_app.json '.apps[1] = $spotc[0]' apps.json > apps.tmp.json && mv apps.tmp.json apps.json
-          
           rm spotc_app.json
+
+          # Update NuvioMobile (Index 2)
+          jq --arg n_ver "${{ steps.nuvio.outputs.TAG }}" \
+             --arg n_date "${{ steps.nuvio.outputs.DATE }}" \
+             --arg n_url "${{ steps.nuvio.outputs.URL }}" \
+             --arg n_size "${{ steps.nuvio.outputs.SIZE }}" \
+             '.apps[2].version = $n_ver | .apps[2].versionDate = $n_date | .apps[2].downloadURL = $n_url | .apps[2].size = ($n_size | tonumber)' \
+             apps.json > apps.tmp.json && mv apps.tmp.json apps.json
 
       - name: Commit and Push Changes
         run: |
