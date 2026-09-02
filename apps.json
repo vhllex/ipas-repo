@@ -1,0 +1,30 @@
+{
+  "name": "VhlleX ipa repo",
+  "identifier": "com.myrepo.source",
+  "apps": [
+    {
+      "name": "YTKACE",
+      "bundleIdentifier": "com.itzzace.ytkace",
+      "developerName": "itzzace",
+      "version": "0.9.2",
+      "versionDate": "2026-09-01",
+      "downloadURL": "https://github.com/itzzace/ytkace/releases/download/v0.9.2/YTKACE_0.9.2_YouTube_21.35.3.ipa",
+      "localizedDescription": "Free, open-source YouTube client with custom tweaks.",
+      "iconURL": "https://raw.githubusercontent.com/itzzace/ytkace/main/icon.png",
+      "tintColor": "#FF0000",
+      "size": 134217728
+    },
+    {
+      "name": "SpotC++",
+      "bundleIdentifier": "com.spotcplusplus.app",
+      "developerName": "SpotCompiled",
+      "version": "2.6.3",
+      "versionDate": "2025-11-20",
+      "downloadURL": "https://github.com/SpotCompiled/SpotC-Plus-Plus/releases/download/v2.6.3/SpotC++.v2.6.3_v9.0.98.ipa",
+      "localizedDescription": "Spotify modified with EeveeSpotify and quality of life tweaks.",
+      "iconURL": "https://raw.githubusercontent.com/SpotCompiled/SpotC-Plus-Plus/main/SpotC++Icon.png",
+      "tintColor": "#1DB954",
+      "size": 86771414
+    }
+  ]
+}
