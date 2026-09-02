@@ -52,10 +52,11 @@ jobs:
         run: |
           JSON=$(curl -s https://dl.strem.io/apple/altstore/source.json)
           
-          VER=$(echo "$JSON" | jq -r '.version // .apps[0].version // "2.0.7"')
-          BUILD=$(echo "$JSON" | jq -r '.buildVersion // .apps[0].buildVersion // "22"')
-          DATE=$(echo "$JSON" | jq -r '.versionDate // .apps[0].versionDate // "2026-09-02"' | cut -d'T' -f1)
-          SIZE=$(echo "$JSON" | jq -r '.size // .apps[0].size // 45000000')
+          # Navigate into .apps[0].versions[0]
+          VER=$(echo "$JSON" | jq -r '.apps[0].versions[0].version')
+          BUILD=$(echo "$JSON" | jq -r '.apps[0].versions[0].buildVersion')
+          DATE=$(echo "$JSON" | jq -r '.apps[0].versions[0].date' | cut -d'T' -f1)
+          SIZE=$(echo "$JSON" | jq -r '.apps[0].versions[0].size')
           
           URL="https://dl.strem.io/apple/${VER}b${BUILD}/ios/stremio_iOS.ipa"
 
