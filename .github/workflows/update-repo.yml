@@ -1,0 +1,55 @@
+name: Sync All Releases
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Fetch YTKACE Release
+        id: ytkace
+        run: |
+          JSON=$(curl -s https://api.github.com/repos/itzzace/ytkace/releases/latest)
+          TAG=$(echo "$JSON" | jq -r '.tag_name')
+          DATE=$(echo "$JSON" | jq -r '.published_at' | cut -d'T' -f1)
+          URL=$(echo "$JSON" | jq -r '.assets[] | select(.name | endswith(".ipa")) | select(.name | contains("iOS16") | not) | .browser_download_url')
+          SIZE=$(echo "$JSON" | jq -r '.assets[] | select(.name | endswith(".ipa")) | select(.name | contains("iOS16") | not) | .size')
+
+          echo "TAG=$TAG" >> $GITHUB_OUTPUT
+          echo "DATE=$DATE" >> $GITHUB_OUTPUT
+          echo "URL=$URL" >> $GITHUB_OUTPUT
+          echo "SIZE=$SIZE" >> $GITHUB_OUTPUT
+
+      - name: Fetch Official SpotC++ App Object
+        id: spotc
+        run: |
+          # Pulls the official SpotC++ JSON block from their raw GitHub source
+          curl -s https://raw.githubusercontent.com/SpotCompiled/SpotC-Repo/main/apps.json | jq '.apps[0]' > spotc_app.json
+
+      - name: Update apps.json
+        run: |
+          # Updates YTKACE in index 0
+          jq --arg y_ver "${{ steps.ytkace.outputs.TAG }}" \
+             --arg y_date "${{ steps.ytkace.outputs.DATE }}" \
+             --arg y_url "${{ steps.ytkace.outputs.URL }}" \
+             --arg y_size "${{ steps.ytkace.outputs.SIZE }}" \
+             '.apps[0].version = $y_ver | .apps[0].versionDate = $y_date | .apps[0].downloadURL = $y_url | .apps[0].size = ($y_size | tonumber)' \
+             apps.json > apps.tmp.json && mv apps.tmp.json apps.json
+
+          # Replaces SpotC++ in index 1 with SpotCompiled's official complete object
+          jq --slurpfile spotc spotc_app.json '.apps[1] = $spotc[0]' apps.json > apps.tmp.json && mv apps.tmp.json apps.json
+          
+          rm spotc_app.json
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add apps.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update apps index" && git push)
