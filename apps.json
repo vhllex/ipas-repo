@@ -751,12 +751,12 @@
       "bundleIdentifier": "com.stremio.ios",
       "developerName": "Smart Code LTD",
       "version": "2.0.7",
-      "versionDate": "2026-09-02",
+      "versionDate": "2026-08-25",
       "downloadURL": "https://dl.strem.io/apple/2.0.7b22/ios/stremio_iOS.ipa",
       "localizedDescription": "Freedom to stream all your video content from multiple sources.",
       "iconURL": "https://raw.githubusercontent.com/Stremio/stremio-web/development/assets/images/stremio_symbol.png",
       "tintColor": "#8A58F5",
-      "size": 45000000
+      "size": 79502924
     }
   ]
 }
