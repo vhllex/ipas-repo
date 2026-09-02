@@ -9,7 +9,7 @@
       "version": "v0.9.2",
       "versionDate": "2026-08-31",
       "downloadURL": "https://github.com/itzzace/ytkace/releases/download/v0.9.2/YTKACE_0.9.2_YouTube_21.35.3.ipa",
-      "localizedDescription": "Free, open-source YouTube client with custom tweaks.",
+      "localizedDescription": "Free, open-source YouTube client with custom tweaks. /https://github.com/itzzace/ytkace/releases/latest",
       "iconURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/YouTube_social_white_square_%282024%29.svg/1280px-YouTube_social_white_square_%282024%29.svg.png",
       "tintColor": "#FF0000",
       "size": 134278975
@@ -741,7 +741,7 @@
       "version": "0.4.13",
       "versionDate": "2026-08-30",
       "downloadURL": "https://github.com/NuvioMedia/NuvioMobile/releases/download/0.4.13/nuvio-0.4.13-full-release.ipa",
-      "localizedDescription": "Media player and streaming client.",
+      "localizedDescription": "Media player and streaming client. /https://github.com/NuvioMedia/NuvioMobile/releases/latest",
       "iconURL": "https://camo.githubusercontent.com/67e1fecc5c2776048fe823f9e067e6652e5bad765dc2d05ba6c15d12a2fff030/68747470733a2f2f6e7576696f2e74762f6173736574732f6e7576696f2d6170702d6c6f676f2d776f72646d61726b2e77656270",
       "tintColor": "#6366F1",
       "size": 51726937
@@ -753,7 +753,7 @@
       "version": "2.0.7",
       "versionDate": "2026-08-25",
       "downloadURL": "https://dl.strem.io/apple/2.0.7b22/ios/stremio_iOS.ipa",
-      "localizedDescription": "Freedom to stream all your video content from multiple sources.",
+      "localizedDescription": "Freedom to stream all your video content from multiple sources. /https://dl.strem.io/apple/altstore/source.json",
       "iconURL": "https://raw.githubusercontent.com/Stremio/stremio-web/development/assets/images/stremio_symbol.png",
       "tintColor": "#8A58F5",
       "size": 79502924
