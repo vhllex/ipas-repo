@@ -742,7 +742,7 @@
       "versionDate": "2026-08-30",
       "downloadURL": "https://github.com/NuvioMedia/NuvioMobile/releases/download/0.4.13/nuvio-0.4.13-full-release.ipa",
       "localizedDescription": "Media player and streaming client. /https://github.com/NuvioMedia/NuvioMobile/releases/latest",
-      "iconURL": "https://camo.githubusercontent.com/67e1fecc5c2776048fe823f9e067e6652e5bad765dc2d05ba6c15d12a2fff030/68747470733a2f2f6e7576696f2e74762f6173736574732f6e7576696f2d6170702d6c6f676f2d776f72646d61726b2e77656270",
+      "iconURL": "https://raw.githubusercontent.com/NuvioMedia/NuvioMobile/refs/heads/cmp-rewrite/iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/app-icon-1024.png",
       "tintColor": "#6366F1",
       "size": 51726937
     },
