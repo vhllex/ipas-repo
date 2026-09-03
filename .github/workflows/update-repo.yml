@@ -65,6 +65,22 @@ jobs:
           echo "URL=$URL" >> $GITHUB_OUTPUT
           echo "SIZE=$SIZE" >> $GITHUB_OUTPUT
 
+      - name: Fetch MaxMusic Release
+        id: maxmusic
+        run: |
+          JSON=$(curl -s https://api.github.com/repos/Mark02-2012/YTMUltimatePLUS/releases/latest)
+          
+          TAG=$(echo "$JSON" | jq -r '.tag_name' | sed 's/^MaxMusic_//' | cut -d'_' -f1)
+          DATE=$(echo "$JSON" | jq -r '.published_at' | cut -d'T' -f1)
+          
+          URL=$(echo "$JSON" | jq -r '.assets[] | select(.name | test("^MaxMusic_.*\\.ipa$")) | select(.name | contains("no-YMP") | not) | .browser_download_url')
+          SIZE=$(echo "$JSON" | jq -r '.assets[] | select(.name | test("^MaxMusic_.*\\.ipa$")) | select(.name | contains("no-YMP") | not) | .size')
+
+          echo "TAG=$TAG" >> $GITHUB_OUTPUT
+          echo "DATE=$DATE" >> $GITHUB_OUTPUT
+          echo "URL=$URL" >> $GITHUB_OUTPUT
+          echo "SIZE=$SIZE" >> $GITHUB_OUTPUT
+
       - name: Update apps.json
         run: |
           # Index 0: YTKACE
@@ -93,6 +109,14 @@ jobs:
              --arg s_url "${{ steps.stremio.outputs.URL }}" \
              --arg s_size "${{ steps.stremio.outputs.SIZE }}" \
              '.apps[3].version = $s_ver | .apps[3].versionDate = $s_date | .apps[3].downloadURL = $s_url | .apps[3].size = ($s_size | tonumber)' \
+             apps.json > apps.tmp.json && mv apps.tmp.json apps.json
+
+          # Index 4: MaxMusic
+          jq --arg m_ver "${{ steps.maxmusic.outputs.TAG }}" \
+             --arg m_date "${{ steps.maxmusic.outputs.DATE }}" \
+             --arg m_url "${{ steps.maxmusic.outputs.URL }}" \
+             --arg m_size "${{ steps.maxmusic.outputs.SIZE }}" \
+             '.apps[4].version = $m_ver | .apps[4].versionDate = $m_date | .apps[4].downloadURL = $m_url | .apps[4].size = ($m_size | tonumber)' \
              apps.json > apps.tmp.json && mv apps.tmp.json apps.json
 
       - name: Commit and Push Changes
