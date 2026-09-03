@@ -757,6 +757,18 @@
       "iconURL": "https://raw.githubusercontent.com/Stremio/stremio-web/development/assets/images/stremio_symbol.png",
       "tintColor": "#8A58F5",
       "size": 79502924
+    },
+    {
+      "name": "MaxMusic",
+      "bundleIdentifier": "com.google.ios.youtubemusic",
+      "developerName": "Mark02",
+      "version": "1.1",
+      "versionDate": "2026-09-02",
+      "downloadURL": "https://github.com/Mark02-2012/YTMUltimatePLUS/releases/download/v1.1/MaxMusic.ipa",
+      "localizedDescription": "YouTube Music fork with integrated tweaks like Return YouTube Dislikes, YTMABConfig, YouMusicPiP, and VolumeBoostYT.",
+      "iconURL": "https://raw.githubusercontent.com/Mark02-2012/YTMUltimatePLUS/refs/heads/MYmain/Resources/IMG_5914.png",
+      "tintColor": "#FF0000",
+      "size": 110000000
     }
   ]
 }
