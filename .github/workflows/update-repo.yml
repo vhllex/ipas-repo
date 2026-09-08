@@ -68,7 +68,7 @@ jobs:
       - name: Fetch MaxMusic Release
         id: maxmusic
         run: |
-          JSON=$(curl -s https://api.github.com/repos/Mark02-2012/YTMUltimatePLUS/releases/latest)
+          JSON=$(curl -s https://api.github.com/repos/Mark02-2012/MaxMusic/releases/latest)
           
           TAG=$(echo "$JSON" | jq -r '.tag_name' | sed 's/^MaxMusic_//' | cut -d'_' -f1)
           DATE=$(echo "$JSON" | jq -r '.published_at' | cut -d'T' -f1)
