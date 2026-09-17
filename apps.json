@@ -738,13 +738,13 @@
       "name": "Nuvio",
       "bundleIdentifier": "com.nuviomedia.nuviomobile",
       "developerName": "NuvioMedia",
-      "version": "0.4.22-beta",
-      "versionDate": "2026-09-16",
-      "downloadURL": "https://github.com/NuvioMedia/NuvioMobile/releases/download/0.4.22-beta/nuvio-0.4.22-full-release.ipa",
+      "version": "0.4.23-beta",
+      "versionDate": "2026-09-17",
+      "downloadURL": "https://github.com/NuvioMedia/NuvioMobile/releases/download/0.4.23-beta/nuvio-0.4.23-full-release.ipa",
       "localizedDescription": "Media player and streaming client. /https://github.com/NuvioMedia/NuvioMobile/releases/latest",
       "iconURL": "https://raw.githubusercontent.com/NuvioMedia/NuvioMobile/refs/heads/cmp-rewrite/iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/app-icon-1024.png",
       "tintColor": "#6366F1",
-      "size": 51383038
+      "size": 51420909
     },
     {
       "name": "Stremio",
@@ -774,13 +774,13 @@
       "name": "Aidoku",
       "bundleIdentifier": "com.aidoku.Aidoku",
       "developerName": "Aidoku",
-      "version": "0.1.10",
-      "versionDate": "2026-09-17",
-      "downloadURL": "https://github.com/Aidoku/Aidoku/releases/download/v0.1.10/Aidoku.ipa",
+      "version": "0.9",
+      "versionDate": "2026-09-03",
+      "downloadURL": "https://github.com/Aidoku/Aidoku/releases/download/v0.9/Aidoku.ipa",
       "localizedDescription": "Free and open-source manga reader for iOS. /https://github.com/Aidoku/Aidoku/releases/latest",
       "iconURL": "https://avatars.githubusercontent.com/u/97767528?s=200&v=4",
       "tintColor": "#FF5F5F",
-      "size": 15000000
+      "size": 14731108
     }
   ]
 }
