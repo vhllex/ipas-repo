@@ -81,6 +81,20 @@ jobs:
           echo "URL=$URL" >> $GITHUB_OUTPUT
           echo "SIZE=$SIZE" >> $GITHUB_OUTPUT
 
+      - name: Fetch Aidoku Release
+        id: aidoku
+        run: |
+          JSON=$(curl -s https://api.github.com/repos/Aidoku/Aidoku/releases/latest)
+          TAG=$(echo "$JSON" | jq -r '.tag_name' | sed 's/^v//')
+          DATE=$(echo "$JSON" | jq -r '.published_at' | cut -d'T' -f1)
+          URL=$(echo "$JSON" | jq -r '.assets[] | select(.name | endswith(".ipa")) | .browser_download_url')
+          SIZE=$(echo "$JSON" | jq -r '.assets[] | select(.name | endswith(".ipa")) | .size')
+
+          echo "TAG=$TAG" >> $GITHUB_OUTPUT
+          echo "DATE=$DATE" >> $GITHUB_OUTPUT
+          echo "URL=$URL" >> $GITHUB_OUTPUT
+          echo "SIZE=$SIZE" >> $GITHUB_OUTPUT
+
       - name: Update apps.json
         run: |
           # Index 0: YTKACE
@@ -117,6 +131,14 @@ jobs:
              --arg m_url "${{ steps.maxmusic.outputs.URL }}" \
              --arg m_size "${{ steps.maxmusic.outputs.SIZE }}" \
              '.apps[4].version = $m_ver | .apps[4].versionDate = $m_date | .apps[4].downloadURL = $m_url | .apps[4].size = ($m_size | tonumber)' \
+             apps.json > apps.tmp.json && mv apps.tmp.json apps.json
+
+          # Index 5: Aidoku
+          jq --arg a_ver "${{ steps.aidoku.outputs.TAG }}" \
+             --arg a_date "${{ steps.aidoku.outputs.DATE }}" \
+             --arg a_url "${{ steps.aidoku.outputs.URL }}" \
+             --arg a_size "${{ steps.aidoku.outputs.SIZE }}" \
+             '.apps[5].version = $a_ver | .apps[5].versionDate = $a_date | .apps[5].downloadURL = $a_url | .apps[5].size = ($a_size | tonumber)' \
              apps.json > apps.tmp.json && mv apps.tmp.json apps.json
 
       - name: Commit and Push Changes
