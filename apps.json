@@ -769,6 +769,18 @@
       "iconURL": "https://raw.githubusercontent.com/Mark02-2012/YTMUltimatePLUS/refs/heads/MYmain/Resources/IMG_5914.png",
       "tintColor": "#FF0000",
       "size": 106518711
+    },
+    {
+      "name": "Aidoku",
+      "bundleIdentifier": "com.aidoku.Aidoku",
+      "developerName": "Aidoku",
+      "version": "0.1.10",
+      "versionDate": "2026-09-17",
+      "downloadURL": "https://github.com/Aidoku/Aidoku/releases/download/v0.1.10/Aidoku.ipa",
+      "localizedDescription": "Free and open-source manga reader for iOS. /https://github.com/Aidoku/Aidoku/releases/latest",
+      "iconURL": "https://avatars.githubusercontent.com/u/97767528?s=200&v=4",
+      "tintColor": "#FF5F5F",
+      "size": 15000000
     }
   ]
 }
