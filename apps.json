@@ -738,13 +738,13 @@
       "name": "Nuvio",
       "bundleIdentifier": "com.nuviomedia.nuviomobile",
       "developerName": "NuvioMedia",
-      "version": "0.6.0-beta",
+      "version": "0.6.1-beta",
       "versionDate": "2026-10-16",
-      "downloadURL": "https://github.com/NuvioMedia/NuvioMobile/releases/download/0.6.0-beta/nuvio-0.6.0-full-release.ipa",
+      "downloadURL": "https://github.com/NuvioMedia/NuvioMobile/releases/download/0.6.1-beta/nuvio-0.6.1-full-release.ipa",
       "localizedDescription": "Media player and streaming client. /https://github.com/NuvioMedia/NuvioMobile/releases/latest",
       "iconURL": "https://raw.githubusercontent.com/NuvioMedia/NuvioMobile/refs/heads/cmp-rewrite/iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/app-icon-1024.png",
       "tintColor": "#6366F1",
-      "size": 68513753
+      "size": 68517984
     },
     {
       "name": "Stremio",
