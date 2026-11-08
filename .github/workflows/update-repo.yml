@@ -68,13 +68,15 @@ jobs:
       - name: Fetch MaxMusic Release
         id: maxmusic
         run: |
-          JSON=$(curl -s https://api.github.com/repos/Mark02-2012/MaxMusic/releases/latest)
+          JSON=$(curl -s https://api.github.com/repos/Mark02-2012/MaxMusic/releases)
           
-          TAG=$(echo "$JSON" | jq -r '.tag_name' | sed 's/^MaxMusic_//' | cut -d'_' -f1)
-          DATE=$(echo "$JSON" | jq -r '.published_at' | cut -d'T' -f1)
+          REL=$(echo "$JSON" | jq 'map(select(.name | contains("MaxMusic no-YMP")))[0]')
           
-          URL=$(echo "$JSON" | jq -r '.assets[] | select(.name | test("^MaxMusic_.*\\.ipa$")) | select(.name | contains("no-YMP")) | .browser_download_url')
-          SIZE=$(echo "$JSON" | jq -r '.assets[] | select(.name | test("^MaxMusic_.*\\.ipa$")) | select(.name | contains("no-YMP")) | .size')
+          TAG=$(echo "$REL" | jq -r '.tag_name' | sed 's/^MaxMusic_//' | cut -d'_' -f1)
+          DATE=$(echo "$REL" | jq -r '.published_at' | cut -d'T' -f1)
+          
+          URL=$(echo "$REL" | jq -r '.assets[] | select(.name | endswith(".ipa")) | .browser_download_url')
+          SIZE=$(echo "$REL" | jq -r '.assets[] | select(.name | endswith(".ipa")) | .size')
 
           echo "TAG=$TAG" >> $GITHUB_OUTPUT
           echo "DATE=$DATE" >> $GITHUB_OUTPUT
