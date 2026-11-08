@@ -73,8 +73,8 @@ jobs:
           TAG=$(echo "$JSON" | jq -r '.tag_name' | sed 's/^MaxMusic_//' | cut -d'_' -f1)
           DATE=$(echo "$JSON" | jq -r '.published_at' | cut -d'T' -f1)
           
-          URL=$(echo "$JSON" | jq -r '.assets[] | select(.name | test("^MaxMusic_.*\\.ipa$")) | select(.name | contains("no-YMP") | not) | .browser_download_url')
-          SIZE=$(echo "$JSON" | jq -r '.assets[] | select(.name | test("^MaxMusic_.*\\.ipa$")) | select(.name | contains("no-YMP") | not) | .size')
+          URL=$(echo "$JSON" | jq -r '.assets[] | select(.name | test("^MaxMusic_.*\\.ipa$")) | select(.name | contains("no-YMP")) | .browser_download_url')
+          SIZE=$(echo "$JSON" | jq -r '.assets[] | select(.name | test("^MaxMusic_.*\\.ipa$")) | select(.name | contains("no-YMP")) | .size')
 
           echo "TAG=$TAG" >> $GITHUB_OUTPUT
           echo "DATE=$DATE" >> $GITHUB_OUTPUT
