@@ -6,13 +6,13 @@
       "name": "YTKACE",
       "bundleIdentifier": "com.itzzace.ytkace",
       "developerName": "itzzace",
-      "version": "v1.1.8",
-      "versionDate": "2026-11-15",
-      "downloadURL": "https://github.com/itzzace/ytkace/releases/download/v1.1.8/YTKACE_1.1.8_YouTube_21.46.3.ipa",
+      "version": "v1.1.9",
+      "versionDate": "2026-11-22",
+      "downloadURL": "https://github.com/itzzace/ytkace/releases/download/v1.1.9/YTKACE_1.1.9_YouTube_21.47.6.ipa",
       "localizedDescription": "Free, open-source YouTube client with custom tweaks. /https://github.com/itzzace/ytkace/releases/latest",
       "iconURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/YouTube_social_white_square_%282024%29.svg/1280px-YouTube_social_white_square_%282024%29.svg.png",
       "tintColor": "#FF0000",
-      "size": 141821255
+      "size": 143414110
     },
     {
       "name": "SpotC++",
